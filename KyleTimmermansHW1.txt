@@ -1,0 +1,29 @@
+## Homework 1, CISC3130, Spring 2021 
+## Name: Kyle Timmermans
+## Date: 02/17/21
+
+
+2. This is my .bash_profile
+-------------------------------------------------
+# .bash_profile
+
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+	. ~/.bashrc
+fi
+
+# User specific environment and startup programs
+
+PATH=$PATH:$HOME/.local/bin:$HOME/bin
+
+export PATH
+-------------------------------------------------
+
+3. ls | find . -type f -name "*.o"
+3. ls -l mySubDir
+
+4. cat /etc/passwd | wc -l                   (1324 Users)
+4. cat /etc/passwd | grep 'bash' | wc -l     (1219 Users)
+4. sort -r -n -k 2 world.txt | head -10 | awk '{print $1}' | nl
+4. sort -r -n -k 2 world.txt | tail -11 | awk '{print $1}' | sed -n '11!p' | nl
+4. sort -r -n -k 2 world.txt | head -10 | awk '{print $1}' | nl | sed 'x;1!H;$!d;x'

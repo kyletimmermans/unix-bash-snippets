@@ -1,0 +1,102 @@
+// Kyle Timmermans
+// 2/24/2021
+// HW2 (Lab2)
+// '__________' denotes text in a file with the file name above it
+
+[Problem 1]
+
+phone.grep
+____________________________________________________________
+\(([0-9]\{3\})\|[0-9]\{3\}\)[ -]\?[0-9]\{3\}[ -]\?[0-9]\{4\}
+____________________________________________________________
+
+
+phone.txt
+____________________
+hey
+9147349000
+ok
+212-900-1111
+ya
+ya
+(212)200-4000
+____________________
+
+
+Command to get numbers: grep -f phone.grep phone.txt
+
+Final output:
+9147349000
+212-900-1111
+(212)200-4000
+
+
+
+[Problem 2]
+
+Using grep to find all 5 character words with characters 'c' 'a' 't' in that specific from wordlist.txt
+
+Command to get these specific words: grep -o -w "\w\{5\}" wordlist.txt | grep "c[^a]*a[^t]*t"    
+
+Final output:
+cacti
+cadet
+carat
+carts
+caste
+casts
+catch
+cater
+chant
+chart
+chats
+cheat
+cleat
+coast
+coats
+craft
+crate
+scant
+
+
+
+[Problem 3]
+
+removecomments.sed
+___________________________________________
+#!/bin/sed -f
+## remove one-line comments from C/C++ code
+
+/^[^'"]*\/\// s/\/\/.*$/ /g
+___________________________________________
+
+
+sample.cpp
+_____________________________________________________________
+#include <iostream>
+using namespace std;
+
+int main () 
+{
+	cout << "Hello world!" << endl; 
+	// Hello world program
+	return 0;
+}
+_____________________________________________________________
+
+
+To make the file executable: chmod +x removecomments.sed
+
+
+Final command: removecomments.sed sample.cpp
+
+Final output:
+#include <iostream>
+using namespace std;
+
+int main () 
+{
+	cout << "Hello world!" << endl;
+
+	return 0;
+}

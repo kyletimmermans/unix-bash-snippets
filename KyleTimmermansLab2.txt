@@ -1,0 +1,16 @@
+## Lab 2, CISC3130, Spring 2021
+## Name: Kyle Timmermans
+## Date: 02/18/21
+
+1. Extract phone numbers from text file
+
+grep -r -o -E '[0-9]\{10\}$' . | uniq > phone.txt
+
+
+2. Fun with words
+	Exactly 5 letters: grep -wE '.\{5\} wordlist.txt
+	No more than 5 letters: grep -wE '\{1,5\}' wordlist.txt
+	Contains letters c, a, t in that order e.g. cat, catch: 
+
+3. Remove single line comments in C/C++ code in sed
+	
