@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Kyle Timmermans - HW3
+
+tput cup $LINENO 0; read -p "First Name: " firstName
+tput cup $LINENO 0; read -p "Last Name: " lastName
+tput cup $LINENO 0; read -p "Address: " address
+tput cup $LINENO 0; read -p "State: " state
+tput cup $LINENO 0; read -p "City: " city
+tput cup $LINENO 0; read -p "Zip: " zip
+tput cup $LINENO 0; read -p "Telephone: " telephone
+
+echo " "  # Formatting
+
+echo $firstName":"$lastName":"$address":"$state":"$city":"$zip":"$telephone >> data.txt
+
