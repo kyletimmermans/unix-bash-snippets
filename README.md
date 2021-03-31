@@ -1,2 +1,2 @@
 # unix-bash-snippets
-CISC-3130
+Unix System Programming - CISC-3130
