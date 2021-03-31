@@ -60,14 +60,14 @@ END {
 Output (awk -f grades.awk grade_info.txt)
 _________________________________________
 
-jack	92	     A
+jack	  92	     A
 ken	    90	     A
 jim	    95.6667	 A
-sally	54	     F
+sally	  54	     F
 tom	    73.3333	 C
-molly	77	     C
-john	58.6667	 F
-catty	64.6667	 D
+molly	  77	     C
+john	  58.6667	 F
+catty	  64.6667	 D
 A:	3
 C:	2
 D:	1
