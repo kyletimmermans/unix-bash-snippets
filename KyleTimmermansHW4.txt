@@ -1,0 +1,135 @@
+## Homework 4, CISC3130, Spring 2021 
+## Name: Kyle Timmermans
+## Date: 03/30/21
+
+
+Problem 1:
+
+
+grade_info.txt
+_______________
+
+jack 88 90 98
+ken 90 90 90
+jim 100 100 87
+sally 23 39 100
+tom 34 98 88
+molly 88 66 77
+john 33 77 66
+catty 44 55 95
+
+
+grades.awk
+___________
+
+#!/bin/awk -f
+
+# $1 = student name 
+# $NF = test scores
+
+BEGIN { OFS = "\t" }   # For all lines of file
+{
+  total = 0   # Stores total amount of scores of tests taken
+  for (i=1; i<=NF; i++)  # For each student's test grade, 3 grades a student
+        total += $i  # Increase total
+        avg = total / (NF - 1)  # Calculate average grade
+        class_avg[NR] = avg 
+        if (avg >= 90) grade="A"   # Letter grade ranges
+        else if (avg >= 80) grade="B"
+        else if (avg >= 70) grade="C"
+        else if (avg >= 60) grade="D"
+        else grade="F"
+        ++class_grade[grade]
+        print $1, avg, grade
+}
+
+# Print class statistics
+END {
+  # Get total average
+  for(x = 1; x<=total; x++)
+        class_avg_total += $x
+        class_average = class_avg_total / NR
+
+  # Print grades
+  for (item in class_grade)
+        print item ":", class_grade[item]
+}
+
+
+
+Output (awk -f grades.awk grade_info.txt)
+_________________________________________
+
+jack	92	     A
+ken	    90	     A
+jim	    95.6667	 A
+sally	54	     F
+tom	    73.3333	 C
+molly	77	     C
+john	58.6667	 F
+catty	64.6667	 D
+A:	3
+C:	2
+D:	1
+F:	2
+
+
+
+
+Problem 2:
+
+
+post_ls.awk
+___________
+
+#!/bin/awk -f
+
+# usage: ls -l | post_ls.awk
+
+NR>1 {  # Ignore first line of the ls -l output (number of files in current dir)
+
+    # Determine file type (Types: - d l c b)
+    if ($1~"^-")  # If normal fule
+       printf "File=%s", $9
+    else if ($1~"^d")  # If directory
+       printf "Dir=%s", $9
+    else if ($1~"^l")  # If link
+       printf "Link=%s", $9
+    else if ($1~"^c")  # If char device
+       printf "CharDevice=%s", $9
+    else if ($1~"^b")  # If block device
+       printf "BlockDevice=%s", $9
+
+    # Output
+    printf " Size=%s", friendly_size($5)  # Call friendly_size()
+    printf " Last Modified=%s %s %s", $6, $7, $8
+    printf " Owner=%s", $3
+    permission = substr($0, 2, 9)  # $0 is the first word a.k.a the permissions (2 starts permission letters, 9 ends it)
+    printf " Permission=%s%s", permission, "\n"
+}
+
+function friendly_size (size_in_byte)
+{
+    if (size_in_byte<1024)
+       return size_in_byte "B" 
+    else if (size_in_byte<1024*1024)
+    {   
+       size_in_KB = size_in_byte/1024;
+       return size_in_KB "KB"
+    }   
+    else if (size_in_byte<1024*1024*1024)
+    {   
+       size_in_MB = size_in_byte/1024/1024;
+       return size_in_MB "MB"
+    }   
+   
+   return "TODO"  # If none of the above options fired
+}
+
+
+
+Output (ls -l | post_ls.awk)
+____________________________
+
+File=testfile.txt Size=74B Last Modified=Mar 11 20:03 Owner=ktimmermans Permission=rw-r--r--
+File=post_ls.awk Size=1.18164KB Last Modified=Mar 31 18:25 Owner=ktimmermans Permission=rwxr-xr-x
