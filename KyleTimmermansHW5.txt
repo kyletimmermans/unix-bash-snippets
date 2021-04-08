@@ -1,0 +1,53 @@
+## Homework 5, CISC3130, Spring 2021 
+## Name: Kyle Timmermans
+## Date: 04/07/21
+
+mergeFiles.cpp
+__________________
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <fcntl.h>
+#include <unistd.h>
+#define BLKSIZE 4096
+
+int main(int argc, char *argv[])
+{
+  
+  // file1+file2
+  int fd, gd, n, total=0;
+  char buf[BLKSIZE];
+  fd = open(argv[1], O_APPEND|O_WRONLY|O_CREAT);  // file1, O_APPEND is append mode, don't delete
+  gd = open(argv[2], O_RDONLY);          // file2
+
+  // line by line get file2 and append to file1
+  while (n = read(gd, buf, BLKSIZE)) { 
+        write(fd, buf, n);   // destination, buffer, size of writing
+        total += n;
+  }
+ 
+  printf("total bytes copied=%d\n", total);
+  close(fd);
+  close(gd);
+
+}
+
+
+
+file1
+_____
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+
+
+file2
+_____
+
+Donec fermentum sapien odio, at faucibus augue convallis quis.
+
+
+Output (./mergeFile file1 file2) (file1+file2)
+________________________________
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Donec fermentum sapien odio, at faucibus augue convallis quis.
