@@ -1,0 +1,101 @@
+### Kyle Timmermans
+### CISC3130 - Midterm 2
+### 04/15/21
+
+1) c. First field in /etc/paswd
+
+2a) 1 3 5 7 9
+
+2b) 5
+
+
+3)  #!/bin/bash
+	# Setting a return value to a function
+
+	function lines_in_file() {
+        cat $1 | wc -l
+	}
+
+	num_lines=$(lines_in_file "$1")
+
+	echo The file $1 has $num_lines lines in it  
+
+
+4)  #!/bin/bash
+
+	while true; do
+	    read -p "Item Name                 : " itemName
+	    read -p "Item Cost                 : " itemCost
+	    read -p "Number of Items Purchased : " numOfItems
+
+	    echo $itemName" "$itemCost" "$numOfItems >> receipt.txt
+
+	    read -p "Enter more items? (Y/n): " cont
+
+	    if [[ $cont == "Y" ]]
+	    then
+	            continue
+	    fi  
+
+	    if [[ $cont == "n" ]]
+	    then
+	            break
+	    fi  
+	done
+
+
+5) #!/bin/awk -f
+
+	BEGIN { OFS = "\t" }   # For all lines of file
+	{
+	  current_total = $2 * $3   # Cost times * num of item bought
+	  gross_total+=current_total
+	  print $1, ": $", current_total
+	}
+
+	END {
+	  print "Gross total: ", gross_total
+	}
+
+
+6)  df
+    du
+    quota
+
+
+7)  Find all the files in the current directory that have the .doc extension
+
+8)  Process - An instance of a running program
+
+9)  Thread - Smallest possible controllable function of an operating system
+
+10) The user is looking to kill a process that is running under their username by sending
+	it the "SIGKILL" signal
+
+11) #include <stdio.h>
+	#include <stdlib.h>
+	#include <fcntl.h>
+	#include <unistd.h>
+	#define BLKSIZE 4096
+
+	int main(int argc, char *argv[])
+	{
+	  
+	  // file2 + file1
+	  int fd, gd, n, total=0;
+	  char buf[BLKSIZE];
+	  fd = open(argv[2], O_APPEND|O_WRONLY|O_CREAT);  // file2
+	  gd = open(argv[1], O_RDONLY);          // file1
+	  
+	  write(fd,"MIDTERM TEST 2\n",15); // add header to file 2
+
+	  // gd = fil
+	  // fd = file2 and 2nd arg
+	  while (n = read(gd, buf, BLKSIZE)) { 
+	        write(fd, buf, n);   
+	  }
+	 
+	  close(fd);
+	  close(gd);
+
+	}
